@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
@@ -16,10 +16,19 @@ import { supabase } from "@/lib/superbase";
 import { Button } from "./ui/button";
 import { Session } from "@supabase/supabase-js";
 import { toast } from "@/hooks/use-toast";
+import { getUserInterests } from "./ui/get-waitlist-count";
 
 export function TopicPreferences({ user }: { user: Session["user"] | null }) {
 	const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
 	const [showButton, setShowButton] = useState(false);
+
+	useEffect(() => {
+		getUserInterests().then((interests) => {
+			setSelectedTopics(
+				interests.map((interest) => interest.interest_id)
+			);
+		});
+	}, []);
 
 	const handleTopicChange = (topic: string) => {
 		if (selectedTopics.includes(topic)) {

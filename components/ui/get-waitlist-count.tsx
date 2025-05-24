@@ -12,3 +12,14 @@ export async function getWaitlistCount() {
 
 	return count || 0;
 }
+
+export async function getUserInterests() {
+	const { data, error } = await supabase.from("user_interests").select("*");
+
+	if (error) {
+		console.error("Error fetching user interests:", error);
+		return [];
+	}
+
+	return data || [];
+}

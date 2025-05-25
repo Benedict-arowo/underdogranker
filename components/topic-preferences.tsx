@@ -200,7 +200,7 @@ export function TopicPreferences({ user }: { user: Session["user"] | null }) {
 										disabled={!user}>
 										{user
 											? "Save Changes"
-											: "Join our waitlist in to add interests"}
+											: "Join our waitlists, to add interests"}
 									</Button>
 								</div>
 							)}

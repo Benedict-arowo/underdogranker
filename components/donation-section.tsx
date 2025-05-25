@@ -53,6 +53,7 @@ export function DonationSection() {
 									className="w-full border-primary/40 hover:bg-primary/10"
 									onClick={() => handleDonation()}>
 									<Link
+										target="_blank"
 										className="flex items-center justify-center w-full"
 										href={
 											"https://nowpayments.io/donation/underdogranker"

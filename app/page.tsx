@@ -14,16 +14,6 @@ export default function Home() {
 	const [user, setUser] = useState<Session["user"] | null>(null);
 
 	useEffect(() => {
-		const script = document.createElement("script");
-		script.src = "https://js.paystack.co/v1/inline.js";
-		script.async = true;
-		document.body.appendChild(script);
-		return () => {
-			document.body.removeChild(script);
-		};
-	}, []);
-
-	useEffect(() => {
 		supabase.auth.getSession().then(({ data }) => {
 			console.log(data.session?.user);
 			setUser(data?.session?.user || null);

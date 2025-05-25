@@ -45,7 +45,7 @@ export function TopicPreferences({ user }: { user: Session["user"] | null }) {
 			return;
 		}
 
-		const { data, error } = await supabase
+		const { error } = await supabase
 			.from("user_interests")
 			.delete()
 			.eq("user_id", user.id);

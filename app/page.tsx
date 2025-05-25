@@ -44,7 +44,7 @@ export default function Home() {
 				<HeroSection user={user} />
 				<AboutSection />
 				<TopicPreferences user={user} />
-				<DonationSection user={user} />
+				<DonationSection />
 				<SocialProof />
 			</main>
 			<Footer />

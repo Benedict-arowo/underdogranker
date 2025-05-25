@@ -5,6 +5,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
 import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -28,13 +29,19 @@ export function Header() {
 				<Logo />
 
 				<div className="flex items-center gap-4">
-					<Button
-						variant="ghost"
-						size="sm"
-						className="hidden md:flex gap-2 text-warm-gray hover:text-foreground">
-						<Github className="h-4 w-4" />
-						<span>Star on GitHub</span>
-					</Button>
+					<Link
+						href={
+							"https://github.com/Benedict-arowo/underdogranker"
+						}
+						target="_blank">
+						<Button
+							variant="ghost"
+							size="sm"
+							className="hidden md:flex gap-2 text-warm-gray hover:text-foreground">
+							<Github className="h-4 w-4" />
+							<span>Star on GitHub</span>
+						</Button>
+					</Link>
 					<ThemeToggle />
 				</div>
 			</div>

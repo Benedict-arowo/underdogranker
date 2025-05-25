@@ -1,6 +1,3 @@
-"use client";
-
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -10,58 +7,17 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Heart, CreditCard, Loader2 } from "lucide-react";
-import { Input } from "./ui/input";
-import { Session } from "@supabase/supabase-js";
+import { Heart, Coffee } from "lucide-react";
+import Link from "next/link";
 
-export function DonationSection({ user }: { user: Session["user"] | null }) {
-	const [isProcessing, setIsProcessing] = useState<string | null>(null);
-	const [customAmount, setCustomAmount] = useState("");
+export function DonationSection() {
 	const { toast } = useToast();
 
-	const payWithPaystack = (amount: number) => {
-		const paystack = window.PaystackPop.setup({
-			key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
-			amount: amount * 100,
-			email: user?.email || "",
-			currency: "USD",
-			callback(response: any) {
-				console.log(response);
-				toast({
-					title: "Thank you! ❤️",
-					description: `Your support of ${
-						amount ? `$${amount}` : ""
-					} helps keep Underdog Ranker independent.`,
-				});
-			},
-			onClose() {
-				toast({
-					title: "Transaction cancelled",
-					description: `Transaction was not completed, window was closed.`,
-					variant: "destructive",
-				});
-			},
+	const handleDonation = async () => {
+		toast({
+			title: "Thank you! ❤️",
+			description: `Your support helps keep Underdog Ranker independent.`,
 		});
-		paystack.openIframe();
-	};
-
-	// Simulate donation process with amount info
-	const handleDonation = async (type: string, amount?: number) => {
-		if (type === "custom" && (!amount || amount < 1)) {
-			toast({
-				title: "Invalid amount",
-				description:
-					"Please enter a valid donation amount of at least $1.",
-				variant: "destructive",
-			});
-			return;
-		}
-
-		setIsProcessing(type);
-		payWithPaystack(amount!);
-
-		setIsProcessing(null);
-		if (type === "custom") setCustomAmount("");
 	};
 
 	return (
@@ -83,101 +39,31 @@ export function DonationSection({ user }: { user: Session["user"] | null }) {
 					</div>
 
 					<div className="grid gap-6 justify-center max-w-2xl mx-auto">
-						<Card className="border-primary/20 bg-card/50 backdrop-blur-sm animate-in stagger-1">
+						<Card className="border-primary/20 bg-card/50 backdrop-blur-sm animate-in stagger-2">
 							<CardHeader className="text-center">
-								<CreditCard className="h-8 w-8 text-primary mx-auto mb-2" />
-								<CardTitle>One-time Donation</CardTitle>
+								<Coffee className="h-8 w-8 text-primary mx-auto mb-2" />
+								<CardTitle>Buy Me a Coffee</CardTitle>
 								<CardDescription>
-									Support via Paystack
+									Quick & easy support
 								</CardDescription>
 							</CardHeader>
-							<CardContent className="space-y-3">
+							<CardContent>
 								<Button
-									onClick={() =>
-										handleDonation("paystack", 5)
-									}
-									disabled={isProcessing === "paystack-5"}
-									size={"sm"}
-									variant={"outline"}
-									className="flex-1">
-									{isProcessing === "paystack-5" ? (
-										<>
-											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-											Processing...
-										</>
-									) : (
-										"$5"
-									)}
+									variant="outline"
+									className="w-full border-primary/40 hover:bg-primary/10"
+									onClick={() => handleDonation()}>
+									<Link
+										className="flex items-center justify-center w-full"
+										href={
+											"https://nowpayments.io/donation/underdogranker"
+										}>
+										<Coffee className="mr-2 h-4 w-4" />
+										Buy Me a Coffee
+									</Link>
 								</Button>
-
-								<Button
-									size={"sm"}
-									variant={"outline"}
-									className="flex-1"
-									onClick={() =>
-										handleDonation("paystack", 25)
-									}
-									disabled={isProcessing === "paystack-15"}>
-									{isProcessing === "paystack-15" ? (
-										<>
-											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-											Processing...
-										</>
-									) : (
-										"$15"
-									)}
-								</Button>
-								<Button
-									size={"sm"}
-									variant={"outline"}
-									className="flex-1"
-									onClick={() =>
-										handleDonation("paystack", 25)
-									}
-									disabled={isProcessing === "paystack-25"}>
-									{isProcessing === "paystack-25" ? (
-										<>
-											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-											Processing...
-										</>
-									) : (
-										"$25"
-									)}
-								</Button>
-
-								<div className="flex flex-row items-center justify-center gap-2 mt-4">
-									<Input
-										type="number"
-										prefix="$"
-										placeholder="$10"
-										value={customAmount}
-										onChange={(e) =>
-											setCustomAmount(e.target.value)
-										}
-										disabled={isProcessing === "custom"}
-										min={1}
-										className="py-2 max-w-[60%] text-base"
-									/>
-									<Button
-										variant="outline"
-										className="h-full"
-										onClick={() =>
-											handleDonation(
-												"custom",
-												Number(customAmount)
-											)
-										}
-										disabled={isProcessing === "custom"}>
-										{isProcessing === "custom" ? (
-											<>
-												<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-												Processing...
-											</>
-										) : (
-											"Donate"
-										)}
-									</Button>
-								</div>
+								<p className="text-xs text-warm-gray text-center mt-3">
+									Perfect for a quick thank you
+								</p>
 							</CardContent>
 						</Card>
 					</div>

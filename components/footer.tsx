@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
-import { Github, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
 export function Footer() {
 	return (
 		<footer className="border-t bg-card/30 backdrop-blur-sm">
 			<div className="container mx-auto py-8 md:py-12">
 				<div className="grid gap-8 md:grid-cols-3">
-					{/* Logo & Description */}
 					<div className="space-y-4">
 						<Logo />
 						<p className="text-sm text-warm-gray max-w-xs">
@@ -18,7 +17,6 @@ export function Footer() {
 						</p>
 					</div>
 
-					{/* Links */}
 					<div className="space-y-4">
 						<h3 className="font-semibold">Legal</h3>
 						<nav className="flex flex-col gap-2">
@@ -40,21 +38,22 @@ export function Footer() {
 						</nav>
 					</div>
 
-					{/* Social & Theme */}
 					<div className="space-y-4">
 						<h3 className="font-semibold">Connect</h3>
 						<div className="flex items-center gap-4">
 							<Link
-								href="#"
+								href="https://github.com/Benedict-arowo/underdogranker"
+								target="_blank"
 								className="text-warm-gray hover:text-foreground transition-colors"
 								aria-label="GitHub">
 								<Github className="h-5 w-5" />
 							</Link>
 							<Link
-								href="#"
+								href="https://www.linkedin.com/in/benedict-arowo/"
 								className="text-warm-gray hover:text-foreground transition-colors"
-								aria-label="Twitter">
-								<Twitter className="h-5 w-5" />
+								target="_blank"
+								aria-label="LinkedIn">
+								<Linkedin className="h-5 w-5" />
 							</Link>
 							<ThemeToggle />
 						</div>
